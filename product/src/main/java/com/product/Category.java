@@ -1,7 +1,9 @@
 package com.product;
 /**
- * El objetivo de esta practica es que el usuario pueda crear, eliminar e imprimir desde la consola
- * 
+ * Category es una clase que funciona como Entity dentro de este proyecto
+ * También sirve para implementar DTO
+ * @author AldoJael
+ * @author Ihebel
  */
 public class Category {
     private int category_id;

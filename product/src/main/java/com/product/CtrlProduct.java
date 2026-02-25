@@ -3,9 +3,21 @@ package com.product;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Esta clase implementa las APIs relacionadas con la entidad Category
+ * @author AldoJael
+ * @author Ihebel
+ */
 @RestController
 public class CtrlProduct {
 
+    /**
+     * Retorna un Json con la lista de categorias disponibles, en este caso
+     * las creadas por el mismo método
+     * @author AldoJael
+     * @author Ihebel
+     * @return Json con la lista de categorias
+     */
     @GetMapping("/category")
     public Category[] getCategories() {
 
