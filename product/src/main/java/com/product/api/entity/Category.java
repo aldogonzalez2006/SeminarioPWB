@@ -1,11 +1,14 @@
-package com.product;
+package com.product.api.entity;
+import jakarta.persistence.*;
 /**
- * Category es una clase que funciona como Entity dentro de este proyecto
- * También sirve para implementar DTO
- * @author AldoJael
- * @author Ihebel
+ * El objetivo de esta practica es que el usuario pueda crear, eliminar e imprimir desde la consola
+ * 
  */
+@Entity
+@Table(name="category")
+
 public class Category {
+    @Id
     private int category_id;
     private String category;
     private String tag;
