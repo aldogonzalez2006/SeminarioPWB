@@ -14,6 +14,8 @@ public class Category {
     private String tag;
     private int status;
 
+    public Category() {
+    }
     public Category(String category, String tag) {
         this.category = category;
         this.tag = tag;
