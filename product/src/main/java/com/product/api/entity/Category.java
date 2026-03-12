@@ -17,11 +17,11 @@ public class Category {
     public Category() {
     }
 
-    public Category(int id, String category, String tag) {
+    public Category(int id, String category, String tag, int status) {
         this.category_id = id;
         this.category = category;
         this.tag = tag;
-        this.status = 1;
+        this.status = status;
     }
 
     public int getCategory_id() {
