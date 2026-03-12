@@ -16,11 +16,6 @@ public class Category {
 
     public Category() {
     }
-    public Category(String category, String tag) {
-        this.category = category;
-        this.tag = tag;
-        this.status = 1;
-    }
 
     public Category(int id, String category, String tag) {
         this.category_id = id;
