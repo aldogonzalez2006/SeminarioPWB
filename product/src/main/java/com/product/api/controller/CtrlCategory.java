@@ -16,6 +16,6 @@ public class CtrlCategory {
 
     @GetMapping("/category")
     public List<Category> getCategories() {
-        return svc.getCategories();
+        return svc.getCategories().getBody();
     }
 }

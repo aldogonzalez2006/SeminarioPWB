@@ -4,9 +4,9 @@ import jakarta.persistence.*;
  * El objetivo de esta practica es que el usuario pueda crear, eliminar e imprimir desde la consola
  * 
  */
+
 @Entity
 @Table(name="category")
-
 public class Category {
     @Id
     private int category_id;
