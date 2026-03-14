@@ -5,6 +5,10 @@ import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
+/**
+ * Clase para estandarizar la respuesta de error que enviamos al cliente. Formato de fecha y getters y setters
+ */
+
 public class ExceptionResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd hh:mm:ss")
     private LocalDateTime timestamp;

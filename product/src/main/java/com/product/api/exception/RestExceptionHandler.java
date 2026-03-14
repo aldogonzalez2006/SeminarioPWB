@@ -8,9 +8,15 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDateTime;
-
+/**
+ * Intercepta errores para dar respuestas estandarizadas.
+ */
+ 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+    /**
+     * Captura específicamente las ApiException que nosotros lancemos manualmente.
+     */
     @ExceptionHandler(ApiException.class)
     protected ResponseEntity<ExceptionResponse> handleApiException(ApiException exception, WebRequest request){
         ExceptionResponse response = new ExceptionResponse();
