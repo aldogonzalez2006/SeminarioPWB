@@ -4,13 +4,17 @@ import java.util.List;
 /**
  * Tambien actualizamos esta clase, agregamos librerias necesarias
  */
-import com.product.api.exception.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import org.springframework.http.ResponseEntity;
+
+import com.product.api.dto.DtoCategoryIn;
 import com.product.api.repository.RepoCategory;
 import com.product.api.entity.Category;
+import com.product.api.exception.ApiException;
 
 @Service
 public class SvcCategoryImp implements SvcCategory {
