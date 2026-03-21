@@ -33,7 +33,7 @@ public class SvcCategoryImp implements SvcCategory {
 //    }
 
     /**
-     * @return 
+     * @return
      */
     @Override
     public List<Category> findAll() {
@@ -81,10 +81,8 @@ public class SvcCategoryImp implements SvcCategory {
         try {
             repo.update(id, in.getCategory(), in.getTag());
         }catch (DataAccessException e) {
-            if (e.getLocalizedMessage().contains("ux_region"))
-                throw new ApiException(HttpStatus.CONFLICT, "El nombre de la región ya está registrado");
-            if (e.getLocalizedMessage().contains("ux_tag"))
-                throw new ApiException(HttpStatus.CONFLICT, "El tag de la región ya está registrado");
+            if(repo.findById(id).isEmpty())
+                throw new ApiException(HttpStatus.NOT_FOUND, "El id de la región no existe");
         }
     }
 
@@ -93,7 +91,13 @@ public class SvcCategoryImp implements SvcCategory {
      */
     @Override
     public void enable(Integer id) {
-
+        try {
+            validateId(id);
+            repo.updateRegionStatus(id, 1);
+        }catch (DataAccessException e) {
+            if(repo.findById(id).isEmpty())
+                throw new ApiException(HttpStatus.NOT_FOUND, "El id de la región no existe");
+        }
     }
 
     /**
@@ -101,6 +105,17 @@ public class SvcCategoryImp implements SvcCategory {
      */
     @Override
     public void disable(Integer id) {
+        try {
+            validateId(id);
+            repo.updateRegionStatus(id, 0);
+        }catch (DataAccessException e) {
+            if(repo.findById(id).isEmpty())
+                throw new ApiException(HttpStatus.NOT_FOUND, "El id de la región no existe");
+        }
+    }
 
+    private void validateId(Integer id) {
+        if(repo.findById(id).isEmpty())
+            throw new ApiException(HttpStatus.NOT_FOUND, "El id de la región no existe");
     }
 }
