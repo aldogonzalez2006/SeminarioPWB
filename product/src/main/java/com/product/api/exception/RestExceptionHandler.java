@@ -1,5 +1,6 @@
 package com.product.api.exception;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,5 +28,20 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         response.setPath(((ServletWebRequest)request).getRequest().getRequestURI().toString());
         return new ResponseEntity<>(response, response.getError());
     }
+
+    @ExceptionHandler(DBAccessException.class)
+    protected ResponseEntity<ExceptionResponse> handleDBAccessException(DBAccessException exception, WebRequest request){
+
+
+        ExceptionResponse response = new ExceptionResponse();
+        response.setTimestamp(LocalDateTime.now());
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        response.setError(HttpStatus.INTERNAL_SERVER_ERROR);
+        response.setMessage("Error al consultar la base de datos");
+        response.setPath(((ServletWebRequest)request).getRequest().getRequestURI().toString());
+
+        return new ResponseEntity<>(response, response.getError());
+    }
+
 
 }
