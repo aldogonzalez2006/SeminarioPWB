@@ -17,4 +17,5 @@ public interface SvcCategory {
 	
 	public void enable(Integer id);
 	public void disable(Integer id);
+    void switchStatus(Integer id, Integer status);
 }
