@@ -1,4 +1,4 @@
-package com.product.api.exception;
+package com.product.exception;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
