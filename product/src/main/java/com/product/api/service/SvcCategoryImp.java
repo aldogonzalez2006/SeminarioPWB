@@ -4,7 +4,7 @@ import java.util.List;
 /**
  * Tambien actualizamos esta clase, agregamos librerias necesarias
  */
-import com.product.api.exception.DBAccessException;
+import com.product.exception.DBAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import com.product.api.dto.DtoCategoryIn;
 import com.product.api.repository.RepoCategory;
 import com.product.api.entity.Category;
-import com.product.api.exception.ApiException;
+import com.product.exception.ApiException;
 
 @Service
 public class SvcCategoryImp implements SvcCategory {
@@ -38,7 +38,7 @@ public class SvcCategoryImp implements SvcCategory {
     @Override
     public List<Category> findAll() {
         try {
-            return repo.gCategories();
+            return repo.getAll();
         }catch (DataAccessException e) {
             throw new DBAccessException(e);
         }
@@ -66,9 +66,9 @@ public class SvcCategoryImp implements SvcCategory {
             repo.create(in.getCategory(), in.getTag());
         }catch (DataAccessException e) {
             if (e.getLocalizedMessage().contains("ux_region"))
-                throw new ApiException(HttpStatus.CONFLICT, "El nombre de la región ya está registrado");
+                throw new ApiException(HttpStatus.CONFLICT, "El nombre de la categoría ya está registrado");
             if (e.getLocalizedMessage().contains("ux_tag"))
-                throw new ApiException(HttpStatus.CONFLICT, "El tag de la región ya está registrado");
+                throw new ApiException(HttpStatus.CONFLICT, "El tag de la categoría ya está registrado");
         }
     }
 
@@ -82,7 +82,7 @@ public class SvcCategoryImp implements SvcCategory {
             repo.update(id, in.getCategory(), in.getTag());
         }catch (DataAccessException e) {
             if(repo.findById(id).isEmpty())
-                throw new ApiException(HttpStatus.NOT_FOUND, "El id de la región no existe");
+                throw new ApiException(HttpStatus.NOT_FOUND, "El id de la categoría no existe");
         }
     }
 
@@ -93,10 +93,10 @@ public class SvcCategoryImp implements SvcCategory {
     public void enable(Integer id) {
         try {
             validateId(id);
-            repo.updateRegionStatus(id, 1);
+            repo.enable(id);
         }catch (DataAccessException e) {
             if(repo.findById(id).isEmpty())
-                throw new ApiException(HttpStatus.NOT_FOUND, "El id de la región no existe");
+                throw new ApiException(HttpStatus.NOT_FOUND, "El id de la categoría no existe");
         }
     }
 
@@ -107,15 +107,15 @@ public class SvcCategoryImp implements SvcCategory {
     public void disable(Integer id) {
         try {
             validateId(id);
-            repo.updateRegionStatus(id, 0);
+            repo.disable(id); // Asegúrate de que este método exista en RepoCategory
         }catch (DataAccessException e) {
             if(repo.findById(id).isEmpty())
-                throw new ApiException(HttpStatus.NOT_FOUND, "El id de la región no existe");
+                throw new ApiException(HttpStatus.NOT_FOUND, "El id de la categoría no existe");
         }
     }
 
     private void validateId(Integer id) {
         if(repo.findById(id).isEmpty())
-            throw new ApiException(HttpStatus.NOT_FOUND, "El id de la región no existe");
+            throw new ApiException(HttpStatus.NOT_FOUND, "El id de la categoría no existe");
     }
 }
