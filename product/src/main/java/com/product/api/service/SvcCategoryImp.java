@@ -107,7 +107,7 @@ public class SvcCategoryImp implements SvcCategory {
     public void disable(Integer id) {
         try {
             validateId(id);
-            repo.disable(id); // Asegúrate de que este método exista en RepoCategory
+            repo.disable(id); 
         }catch (DataAccessException e) {
             if(repo.findById(id).isEmpty())
                 throw new ApiException(HttpStatus.NOT_FOUND, "El id de la categoría no existe");
