@@ -34,7 +34,7 @@ public class SvcProductImageImp implements SvcProductImage {
     @Override
     public List<ProductImage> getProductImages(Integer product_id) {
         try {
-            return repo.findByProductIdAndStatus(product_id, 1);
+            return repo.findByProductIdAndStatus(product_id);
         } catch (DataAccessException e) {
             throw new DBAccessException(e);
         }
@@ -43,26 +43,25 @@ public class SvcProductImageImp implements SvcProductImage {
     @Override
     public void upload(ProductImage in) {
         try {
-            // PASO 0: Validar prefijo del String de Base64
+            // Validar prefijo del String de Base64
             if (in.getImage().startsWith("data:image")) {
                 int commaIndex = in.getImage().indexOf(",");
                 if (commaIndex != -1) {
                     in.setImage(in.getImage().substring(commaIndex + 1));
                 }
             }
-
-            // PASO 1: Convertir el Base64 en un File
+            // Convertir el Base64 en un File
             byte[] imageBytes = Base64.getDecoder().decode(in.getImage());
             String fileName = UUID.randomUUID().toString() + ".png";
 
             // Construye la ruta completa: uploads/img/product/nombrefile.png
             Path imagePath = Paths.get(uploadDir, uploadImages, "product", fileName);
 
-            // PASO 2: Guardar el File en el sistema de archivos
+            // Guardar el File en el sistema de archivos
             Files.createDirectories(imagePath.getParent());
             Files.write(imagePath, imageBytes);
 
-            // PASO 3: Guardar la ruta en la base de datos
+            // Guardar la ruta en la base de datos
             ProductImage productImage = new ProductImage();
             productImage.setProductId(in.getProductId());
             productImage.setImage("/product/" + fileName); // Ruta relativa
@@ -70,6 +69,8 @@ public class SvcProductImageImp implements SvcProductImage {
 
             repo.save(productImage);
 
+        } catch (IllegalArgumentException e) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "El string de la imagen no es un Base64 válido.");
         } catch (DataAccessException e) {
             throw new DBAccessException(e);
         } catch (IOException e) {
