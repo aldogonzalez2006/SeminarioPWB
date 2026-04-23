@@ -34,7 +34,7 @@ public class SvcProductImageImp implements SvcProductImage {
     @Override
     public List<ProductImage> getProductImages(Integer product_id) {
         try {
-            return repo.findByProductIdAndStatus(product_id);
+            return repo.findByProductIdAndStatus(product_id,1);
         } catch (DataAccessException e) {
             throw new DBAccessException(e);
         }

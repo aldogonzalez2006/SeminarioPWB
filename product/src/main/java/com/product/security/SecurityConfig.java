@@ -27,17 +27,18 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth
+                .authorizeHttpRequests(
+                        auth -> auth
 
                         // Rutas públicas
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/user").permitAll()
 
-                        // Solo ADMIN
-                        .requestMatchers(HttpMethod.GET, "/user").hasAuthority("Administrator")
+                        // Customer y Admin: Consultas de categorias, productos e imagenes
+                        .requestMatchers(HttpMethod.GET, "/category/**", "/product/**").hasAnyAuthority("Customer", "Administrator")
 
-                        // Cualquier otra necesita token
-                        .anyRequest().authenticated()
+                        // Admin: Acceso a todos los demás endpoints
+                        .anyRequest().hasAuthority("Administrator")
                 )
                 .sessionManagement(s ->
                         s.sessionCreationPolicy(SessionCreationPolicy.STATELESS)

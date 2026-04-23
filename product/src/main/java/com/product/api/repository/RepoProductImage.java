@@ -19,8 +19,8 @@ public interface RepoProductImage extends JpaRepository<ProductImage, Integer> {
     @Query(value = "SELECT * FROM product_image WHERE status = 1", nativeQuery = true)
     List<ProductImage> findActive();
 
-    @Query(value = "SELECT * FROM product_image WHERE product_id = :productId AND status = 1", nativeQuery = true)
-    List<ProductImage> findByProductIdAndStatus(@Param("productId") Integer productId);
+    @Query(value = "SELECT * FROM product_image WHERE product_id = :product_id AND status = :status", nativeQuery = true)
+    List<ProductImage> findByProductIdAndStatus(@Param("product_id") Integer product_id, @Param("status") Integer status);
 
     @Modifying
     @Transactional
