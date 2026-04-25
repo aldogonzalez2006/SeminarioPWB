@@ -1,4 +1,4 @@
-package com.product.jwt;
+package com.product.config.jwt;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 import com.product.api.service.DefaultUserAuthentication;
