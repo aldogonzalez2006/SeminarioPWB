@@ -6,9 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.product.api.entity.ProductImage;
 import com.product.api.service.SvcProductImage;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/product-image")
+@Tag(name = "Product Image", description = "Gestión de imágenes de los productos")
 public class CtrlProductImage {
 
     @Autowired

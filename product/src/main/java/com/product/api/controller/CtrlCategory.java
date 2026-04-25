@@ -16,10 +16,15 @@ import com.product.api.dto.DtoCategoryIn;
 import com.product.api.service.SvcCategory;
 import com.product.api.entity.Category;
 
+// nuevos paquetes swagger
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+
 @RestController
-@RequestMapping ("/category")
+@RequestMapping("/category")
+@Tag(name = "Category", description = "Operaciones relacionadas con las categorías de productos")
 public class CtrlCategory {
 
     @Autowired

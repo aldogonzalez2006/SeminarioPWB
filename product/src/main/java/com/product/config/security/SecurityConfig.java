@@ -31,9 +31,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         auth -> auth
 
-                        // Rutas públicas
+                        // Rutas públicas (agregamos swagger)
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/user").permitAll()
+                        .requestMatchers("/error", "/swagger-ui/**", "/v3/api-docs/**", "/actuator/info", "/actuator/health").permitAll()
 
                         // Customer y Admin: Consultas de categorias, productos e imagenes
                         .requestMatchers(HttpMethod.GET, "/category/**", "/product/**").hasAnyAuthority("Customer", "Administrator")
